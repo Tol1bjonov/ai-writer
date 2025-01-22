@@ -3,6 +3,7 @@ import Navabr from '../dashboard/navbar'
 import Sidebar from '../dashboard/sidebar'
 
 export default function DashboardLayout() {
+   console.log(import.meta.env.VITE_OPEN_AI_KEY)
    return (
       <div className=" h-screen overflow-hidden flex">
          <Sidebar />
