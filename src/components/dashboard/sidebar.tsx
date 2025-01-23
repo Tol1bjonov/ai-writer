@@ -1,6 +1,7 @@
-import { PencilRulerIcon } from 'lucide-react'
+import { Loader2, PencilRulerIcon } from 'lucide-react'
 import PropmtHistory from './promt-history'
 import { TPromtHistory } from '../../shared/types/promt-history.types'
+import { useAppContext } from '../../contexts/app.context'
 
 const mockItems: TPromtHistory[] = [
    {
@@ -32,13 +33,18 @@ const mockItems: TPromtHistory[] = [
 ]
 
 export default function Sidebar() {
+   const { generatingContent } = useAppContext()
    return (
       <nav className=" h-screen w-80 border-r p-4">
          <div className=" flex items-center justify-between">
             <h1 className=" text-xl font-semibold">AI Writer</h1>
-            <button>
-               <PencilRulerIcon className="w-6 h-6" />
-            </button>
+            {generatingContent ? (
+               <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+            ) : (
+               <button>
+                  <PencilRulerIcon className="w-6 h-6" />
+               </button>
+            )}
          </div>
 
          <PropmtHistory items={mockItems} />
