@@ -4,6 +4,7 @@ import { Input } from '../ui/input'
 import { Label } from '../ui/label'
 import { Textarea } from '../ui/textarea'
 import { Loader2 } from 'lucide-react'
+import { generateArticle } from '../../utils/openai'
 
 export default function ContentCreate() {
    const [isLoading, setIsloading] = useState(false)
@@ -12,10 +13,12 @@ export default function ContentCreate() {
       description: '',
    })
 
-   const handleSubmit = (event: FormEvent) => {
+   const handleSubmit = async (event: FormEvent) => {
       event.preventDefault()
       setIsloading(true)
-      console.log(form)
+      const result = await generateArticle(form.title, form.description)
+      console.log(result)
+      setIsloading(false)
    }
 
    const handleChange = (
