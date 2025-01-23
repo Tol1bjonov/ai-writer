@@ -4,7 +4,7 @@ import Sidebar from '../dashboard/sidebar'
 
 export default function DashboardLayout() {
    return (
-      <div className=" h-screen overflow-hidden flex">
+      <div className=" h-screen overflow-x-hidden flex">
          <Sidebar />
          <div className="w-full">
             <Navabr />

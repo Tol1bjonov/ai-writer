@@ -1,4 +1,4 @@
-import { Pencil } from 'lucide-react'
+import { PencilRulerIcon } from 'lucide-react'
 import PropmtHistory from './promt-history'
 import { TPromtHistory } from '../../shared/types/promt-history.types'
 
@@ -37,7 +37,7 @@ export default function Sidebar() {
          <div className=" flex items-center justify-between">
             <h1 className=" text-xl font-semibold">AI Writer</h1>
             <button>
-               <Pencil size={24} />
+               <PencilRulerIcon className="w-6 h-6" />
             </button>
          </div>
 
