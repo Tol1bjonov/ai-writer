@@ -3,6 +3,14 @@ import OpenAI from 'openai'
 let openAi: OpenAI
 
 export const generateArticle = async (title: string, description: string) => {
+   if (!import.meta.env.VITE_OPEN_AI_KEY) {
+      return new Promise<string>((resolve) => {
+         setTimeout(() => {
+            resolve(`xatolik yuz berdi`)
+         }, 2000)
+      })
+   }
+
    if (!openAi) {
       console.log('init openai')
       openAi = new OpenAI({
