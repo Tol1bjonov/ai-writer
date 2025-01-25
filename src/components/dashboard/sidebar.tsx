@@ -33,9 +33,12 @@ const mockItems: TPromtHistory[] = [
 ]
 
 export default function Sidebar() {
-   const { generatingContent } = useAppContext()
+   const { generatingContent, sidebarOpen } = useAppContext()
+   const classes = sidebarOpen ? 'w-1/2 border-r p-2' : 'w-0'
    return (
-      <nav className=" h-screen w-80 border-r p-4">
+      <nav
+         className={`transition-all duration-500 overflow-x-hidden h-screen md:w-80 md:border-r md:p-4 md:p-2 ${classes}`}
+      >
          <div className=" flex items-center justify-between">
             <h1 className=" text-xl font-semibold">AI Writer</h1>
             {generatingContent ? (
