@@ -1,8 +1,6 @@
 import { ReactNode, useContext, useState, createContext, FC } from 'react'
 
 interface IAppContext {
-   generatingContent: boolean
-   setGeneratingContent: (value: boolean) => void
    sidebarOpen: boolean
    toggleSidebar: () => void
 }
@@ -22,7 +20,6 @@ interface IProps {
 }
 
 const AppContextProvider: FC<IProps> = ({ children }) => {
-   const [generatingContent, setGeneratingContent] = useState(false)
    const [sidebarOpen, setSidebarOpen] = useState(false)
    const toggleSidebar = () => {
       setSidebarOpen(!sidebarOpen)
@@ -31,8 +28,6 @@ const AppContextProvider: FC<IProps> = ({ children }) => {
    return (
       <AppContext.Provider
          value={{
-            generatingContent,
-            setGeneratingContent,
             sidebarOpen,
             toggleSidebar,
          }}
