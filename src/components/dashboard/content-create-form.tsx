@@ -1,7 +1,7 @@
 import { Button } from '../ui/button'
 import { Input } from '../ui/input'
 import { Loader2 } from 'lucide-react'
-import { ContentCreateRequestParam } from '../../shared/types/content-create-request-param'
+import { TContentCreateRequestParam } from '../../shared/types/content-create-request-param'
 ;('use client')
 
 import { z } from 'zod'
@@ -19,7 +19,7 @@ import {
 
 type ContentCreateFormProps = {
    isLoading: boolean
-   onSubmit: (params: ContentCreateRequestParam) => void
+   onSubmit: (params: TContentCreateRequestParam) => void
 }
 
 const formSchema = z.object({
