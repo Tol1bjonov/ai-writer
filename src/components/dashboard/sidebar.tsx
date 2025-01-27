@@ -1,41 +1,12 @@
 import { Loader2, PencilRulerIcon } from 'lucide-react'
 import PropmtHistory from './promt-history'
-import { TPromtHistory } from '../../shared/types/promt-history.types'
 import { useAppContext } from '../../contexts/app.context'
 import { useContentContext } from '../../contexts/content.context'
 
-const mockItems: TPromtHistory[] = [
-   {
-      date: 'Today',
-      links: [
-         {
-            title: 'Prompt 1',
-            url: './dashboard/prompt/1',
-         },
-         {
-            title: 'Prompt 2',
-            url: './dashboard/prompt/2',
-         },
-      ],
-   },
-   {
-      date: 'Yesterday',
-      links: [
-         {
-            title: 'Prompt 1',
-            url: './dashboard/prompt/1',
-         },
-         {
-            title: 'Prompt 2',
-            url: './dashboard/prompt/2',
-         },
-      ],
-   },
-]
-
 export default function Sidebar() {
    const { sidebarOpen } = useAppContext()
-   const { generatingContent } = useContentContext()
+   const { generatingContent, getPromptHistory } = useContentContext()
+   const historyItems = getPromptHistory()
    const classes = sidebarOpen ? 'w-1/2 border-r p-2' : 'w-0'
    return (
       <nav
@@ -52,7 +23,7 @@ export default function Sidebar() {
             )}
          </div>
 
-         <PropmtHistory items={mockItems} />
+         <PropmtHistory items={historyItems} />
       </nav>
    )
 }

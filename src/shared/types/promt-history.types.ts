@@ -1,4 +1,4 @@
-type TPromtLink = {
+export type TPromtLink = {
    title: string
    url: string
 }
