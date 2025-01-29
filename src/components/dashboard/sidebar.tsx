@@ -2,6 +2,7 @@ import { Loader2, PencilRulerIcon } from 'lucide-react'
 import PropmtHistory from './promt-history'
 import { useAppContext } from '../../contexts/app.context'
 import { useContentContext } from '../../contexts/content.context'
+import { Link } from 'react-router-dom'
 
 export default function Sidebar() {
    const { sidebarOpen } = useAppContext()
@@ -17,9 +18,9 @@ export default function Sidebar() {
             {generatingContent ? (
                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
             ) : (
-               <button>
+               <Link to={'/dashboard'}>
                   <PencilRulerIcon className="w-6 h-6" />
-               </button>
+               </Link>
             )}
          </div>
 

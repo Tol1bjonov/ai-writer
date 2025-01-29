@@ -10,6 +10,8 @@ import {
    ContentContext,
    ContentContextProvider,
 } from './contexts/content.context'
+import DashboardFunction from './pages/dashboard.content'
+import ContentNotFound from './components/dashboard/content-not-found'
 
 const router = createBrowserRouter([
    {
@@ -31,6 +33,11 @@ const router = createBrowserRouter([
          {
             index: true,
             element: <DashboardHome />,
+         },
+         {
+            path: 'content/:id',
+            element: <DashboardFunction />,
+            errorElement: <ContentNotFound />,
          },
       ],
    },
