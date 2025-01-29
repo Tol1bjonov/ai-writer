@@ -6,6 +6,13 @@ import { useState } from 'react'
 import MDEditor from '@uiw/react-md-editor'
 import { TGeneratedContent } from '../../shared/types/generated-content'
 
+import {
+   Tooltip,
+   TooltipContent,
+   TooltipProvider,
+   TooltipTrigger,
+} from '../ui/tooltip'
+
 type ContentViewerProps = {
    generatedContent: TGeneratedContent
    onSave: (generateContent: TGeneratedContent) => void
@@ -58,19 +65,56 @@ export default function ContentViewer({
             />
          </CardContent>
          <CardFooter className="flex gap-2 justify-end">
-            <Button variant="outline" onClick={handleEdit}>
-               <Pencil className="h-4 w-4" />
-            </Button>
-            <Button variant="outline">
-               <ShareIcon className="h-4 w-4" />
-            </Button>
-            <Button variant="outline" onClick={handleCopy}>
-               <ClipboardIcon className="h-4 w-4" />
-            </Button>
-            <Button variant="outline">
-               <StarIcon className="h-4 w-4" />
-            </Button>
-            <Button>Deploy</Button>
+            <TooltipProvider>
+               <Tooltip>
+                  <TooltipTrigger asChild>
+                     <Button variant="outline" onClick={handleEdit}>
+                        <Pencil className="h-4 w-4" />
+                     </Button>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                     <p>Edit</p>
+                  </TooltipContent>
+               </Tooltip>
+               <Tooltip>
+                  <TooltipTrigger asChild>
+                     <Button variant="outline">
+                        <ShareIcon className="h-4 w-4" />
+                     </Button>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                     <p>Share</p>
+                  </TooltipContent>
+               </Tooltip>
+               <Tooltip>
+                  <TooltipTrigger asChild>
+                     <Button variant="outline" onClick={handleCopy}>
+                        <ClipboardIcon className="h-4 w-4" />
+                     </Button>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                     <p>Copy</p>
+                  </TooltipContent>
+               </Tooltip>
+               <Tooltip>
+                  <TooltipTrigger asChild>
+                     <Button variant="outline">
+                        <StarIcon className="h-4 w-4" />
+                     </Button>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                     <p>Rate</p>
+                  </TooltipContent>
+               </Tooltip>
+               <Tooltip>
+                  <TooltipTrigger asChild>
+                     <Button>Deploy</Button>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                     <p>Deploy</p>
+                  </TooltipContent>
+               </Tooltip>
+            </TooltipProvider>
          </CardFooter>
       </Card>
    ) : (
