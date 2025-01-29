@@ -14,8 +14,10 @@ interface ICntentContext {
    setGeneratingContent: (value: boolean) => void
    generateContent: (
       params: TContentCreateRequestParam
-   ) => Promise<string | null>
+   ) => Promise<TGeneratedContent | null>
    getPromptHistory: () => TPromtHistory[]
+   getContentById: (id: string) => TGeneratedContent
+   updateById: (id: string, generateContent: TGeneratedContent) => void
 }
 
 export const ContentContext = createContext<ICntentContext | null>(null)
@@ -40,21 +42,20 @@ const ContentContextProvider: FC<IProps> = ({ children }) => {
    )
 
    const generateContent = async (params: TContentCreateRequestParam) => {
-      let content = null
-      getPromptHistory()
+      let generatedContent: TGeneratedContent | null = null
       setGeneratingContent(true)
       const { title, description } = params
       try {
-         content = await generateArticle(title, description)
+         const content = await generateArticle(title, description)
          if (content) {
-            const generatedContentItem: TGeneratedContent = {
+            generatedContent = {
                id: uuidv4(),
                title,
                description,
                content,
                createdAt: new Date(),
             }
-            setContentItems([generatedContentItem, ...(contentItems || [])])
+            setContentItems([generatedContent, ...(contentItems || [])])
          }
       } catch (error) {
          console.log('[Error] Failed to generate article', error)
@@ -62,7 +63,7 @@ const ContentContextProvider: FC<IProps> = ({ children }) => {
       } finally {
          setGeneratingContent(false)
       }
-      return content
+      return generatedContent
    }
 
    const getPromptHistory = (): TPromtHistory[] => {
@@ -78,7 +79,7 @@ const ContentContextProvider: FC<IProps> = ({ children }) => {
             }
             prev[date].push({
                title: next.title,
-               url: `./dashboard/content/${next.id}`,
+               url: `/dashboard/content/${next.id}`,
             })
             return prev
          },
@@ -93,6 +94,24 @@ const ContentContextProvider: FC<IProps> = ({ children }) => {
          }))
    }
 
+   const getContentById = (id: string) => {
+      const generatedContent = contentItems?.find((item) => item.id === id)
+      if (!generateContent) {
+         throw new Error('Content not found')
+      }
+      return generateContent
+   }
+
+   const updateById = (id: string, generateContent: TGeneratedContent) => {
+      const updatedContentItems = contentItems?.map((item) => {
+         if (item.id === id) {
+            return generateContent
+         }
+         return item
+      })
+      setContentItems(updatedContentItems || [])
+   }
+
    return (
       <ContentContext.Provider
          value={{
@@ -100,6 +119,8 @@ const ContentContextProvider: FC<IProps> = ({ children }) => {
             setGeneratingContent,
             generateContent,
             getPromptHistory,
+            getContentById,
+            updateById,
          }}
       >
          {children}
