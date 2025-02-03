@@ -12,6 +12,7 @@ import {
 } from './contexts/content.context'
 import DashboardFunction from './pages/dashboard.content'
 import ContentNotFound from './components/dashboard/content-not-found'
+import Share from './pages/share'
 
 const router = createBrowserRouter([
    {
@@ -40,6 +41,11 @@ const router = createBrowserRouter([
             errorElement: <ContentNotFound />,
          },
       ],
+   },
+   {
+      path: 'share/:id',
+      element: <Share />,
+      errorElement: <ContentNotFound />,
    },
 ])
 
