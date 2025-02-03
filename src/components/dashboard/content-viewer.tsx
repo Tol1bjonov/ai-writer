@@ -41,6 +41,20 @@ export default function ContentViewer({
          console.error('Error occured while copied to clipboard')
       }
    }
+
+   const handleShare = async () => {
+      const { origin } = window.location
+      try {
+         await navigator.clipboard.writeText(
+            `${origin}/share/${generatedContent.id}`
+         )
+         toast.success('Share link successfully copied to clipboard')
+      } catch (e) {
+         console.error('[Error] Failed to copy clipboard', e)
+         console.error('Error occured while copied to clipboard')
+      }
+   }
+
    const handleEdit = () => {
       setMode(Mode.Edit)
    }
@@ -78,7 +92,7 @@ export default function ContentViewer({
                </Tooltip>
                <Tooltip>
                   <TooltipTrigger asChild>
-                     <Button variant="outline">
+                     <Button variant="outline" onClick={handleShare}>
                         <ShareIcon className="h-4 w-4" />
                      </Button>
                   </TooltipTrigger>
