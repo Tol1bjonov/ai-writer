@@ -17,43 +17,44 @@ import { useAuthContext } from '../../contexts/auth.context'
 import toast from 'react-hot-toast'
 import { useNavigate } from 'react-router-dom'
 
-const formSchema = z
-   .object({
-      login: z.string().min(5).max(20),
-      password: z.string().min(4),
-      passwordRepeat: z.string().min(4),
-   })
-   .refine((data) => data.password === data.passwordRepeat, {
-      message: 'Password are not equal',
-      path: [`passwordRepeat`],
-   })
+const formSchema = z.object({
+   login: z.string().min(5).max(20),
+   password: z.string().min(4),
+})
 
-export default function Register() {
+export default function Login() {
    const navigate = useNavigate()
-   const { registerUser } = useAuthContext()
+   const { loginUser } = useAuthContext()
    const form = useForm<z.infer<typeof formSchema>>({
       resolver: zodResolver(formSchema),
       defaultValues: {
          login: '',
          password: '',
-         passwordRepeat: '',
       },
    })
 
    const handleSubmit = (values: z.infer<typeof formSchema>) => {
       const { login, password } = values
-      registerUser(login, password)
-      toast.success('Account created')
-      navigate('/login')
+      try {
+         loginUser(login, password)
+         toast.success('Login successfull')
+         navigate('/dashboard')
+      } catch (error) {
+         if (error instanceof Error) {
+            toast.error(error.message)
+         }
+      }
    }
    return (
       <Form {...form}>
          <form onSubmit={form.handleSubmit(handleSubmit)} className="w-full">
             <Card className="max-w-md mx-auto">
                <CardHeader className="space-y-1">
-                  <CardTitle className="text-2xl">Create an account</CardTitle>
+                  <CardTitle className="text-2xl">
+                     Login to your account
+                  </CardTitle>
                   <CardDescription>
-                     Enter your login and password to create an account
+                     Enter your login and password to login to your account
                   </CardDescription>
                </CardHeader>
                <CardContent className="grid gap-4">
@@ -83,22 +84,9 @@ export default function Register() {
                      name="password"
                      control={form.control}
                   />
-                  <FormField
-                     render={({ field }) => (
-                        <FormItem>
-                           <FormLabel>Password repeat</FormLabel>
-                           <FormControl>
-                              <Input type="password" {...field} />
-                           </FormControl>
-                           <FormMessage />
-                        </FormItem>
-                     )}
-                     name="passwordRepeat"
-                     control={form.control}
-                  />
                </CardContent>
                <CardFooter>
-                  <Button className="w-full">Create account</Button>
+                  <Button className="w-full">Login</Button>
                </CardFooter>
             </Card>
          </form>
