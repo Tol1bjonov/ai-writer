@@ -6,13 +6,13 @@ import DashboardLayout from './components/layouts/dashboard-layout'
 import DashboardHome from './pages/dashboard-home'
 import { AppContextProvider } from './contexts/app.context'
 import { Toaster } from 'react-hot-toast'
-import {
-   ContentContext,
-   ContentContextProvider,
-} from './contexts/content.context'
+import { ContentContextProvider } from './contexts/content.context'
 import DashboardFunction from './pages/dashboard.content'
 import ContentNotFound from './components/dashboard/content-not-found'
 import Share from './pages/share'
+import Authlayout from './components/layouts/auth.layouts'
+import Register from './components/auth/register'
+import { AuthProvider } from './contexts/auth.context'
 
 const router = createBrowserRouter([
    {
@@ -47,15 +47,27 @@ const router = createBrowserRouter([
       element: <Share />,
       errorElement: <ContentNotFound />,
    },
+   {
+      path: 'auth',
+      element: <Authlayout />,
+      children: [
+         {
+            path: 'register',
+            element: <Register />,
+         },
+      ],
+   },
 ])
 
 createRoot(document.getElementById('root')!).render(
    <StrictMode>
       <Toaster />
       <AppContextProvider>
-         <ContentContextProvider>
-            <RouterProvider router={router} />
-         </ContentContextProvider>
+         <AuthProvider>
+            <ContentContextProvider>
+               <RouterProvider router={router} />
+            </ContentContextProvider>
+         </AuthProvider>
       </AppContextProvider>
    </StrictMode>
 )
