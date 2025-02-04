@@ -14,6 +14,7 @@ import Authlayout from './components/layouts/auth.layouts'
 import Register from './components/auth/register'
 import { AuthProvider } from './contexts/auth.context'
 import Login from './components/auth/login'
+import ProtectedRoute from './components/auth/protected-route'
 
 const router = createBrowserRouter([
    {
@@ -30,7 +31,11 @@ const router = createBrowserRouter([
    },
    {
       path: 'dashboard',
-      element: <DashboardLayout />,
+      element: (
+         <ProtectedRoute>
+            <DashboardLayout />
+         </ProtectedRoute>
+      ),
       children: [
          {
             index: true,
