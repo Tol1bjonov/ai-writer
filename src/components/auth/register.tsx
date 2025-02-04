@@ -44,7 +44,7 @@ export default function Register() {
       const { login, password } = values
       registerUser(login, password)
       toast.success('Account created')
-      navigate('/login')
+      navigate('/auth/login')
    }
    return (
       <Form {...form}>
