@@ -17,6 +17,7 @@ import {
    FormMessage,
 } from '../ui/form'
 import { Textarea } from '../ui/textarea'
+import { useTranslation } from 'react-i18next'
 
 type ContentCreateFormProps = {
    isLoading: boolean
@@ -32,6 +33,7 @@ export default function ContentCreate({
    isLoading,
    onSubmit,
 }: ContentCreateFormProps) {
+   const { t } = useTranslation('dashboard')
    const form = useForm<z.infer<typeof formSchema>>({
       resolver: zodResolver(formSchema),
       defaultValues: {
@@ -56,13 +58,11 @@ export default function ContentCreate({
                disabled={isLoading}
                render={({ field }) => (
                   <FormItem>
-                     <FormLabel>Title</FormLabel>
+                     <FormLabel>{t('title')}</FormLabel>
                      <FormControl>
                         <Input placeholder="ReactJS" {...field} />
                      </FormControl>
-                     <FormDescription>
-                        Please, provide a title for your content!
-                     </FormDescription>
+                     <FormDescription>{t('titleHint')}</FormDescription>
                      <FormMessage />
                   </FormItem>
                )}
@@ -73,24 +73,22 @@ export default function ContentCreate({
                disabled={isLoading}
                render={({ field }) => (
                   <FormItem>
-                     <FormLabel>Description</FormLabel>
+                     <FormLabel>{t('description')}</FormLabel>
                      <FormControl>
                         <Textarea
-                           placeholder="Write about ReactJS form validation. Provide a real life examples."
+                           placeholder={t('descriptPlaceholder')}
                            {...field}
                            rows={5}
                         />
                      </FormControl>
-                     <FormDescription>
-                        Please, provide a title for your content!
-                     </FormDescription>
+                     <FormDescription>{t('descriptionHint')}</FormDescription>
                      <FormMessage />
                   </FormItem>
                )}
             />
             <Button disabled={isLoading}>
                {isLoading && <Loader2 className="mr-2 w-4 h-4 animate-spin" />}
-               Submit
+               {t('generate')}
             </Button>
          </form>
       </Form>
