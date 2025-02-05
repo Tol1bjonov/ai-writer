@@ -16,6 +16,7 @@ import { AuthProvider } from './contexts/auth.context'
 import Login from './components/auth/login'
 import ProtectedRoute from './components/auth/protected-route'
 
+import './i18n'
 const router = createBrowserRouter([
    {
       path: '/',
