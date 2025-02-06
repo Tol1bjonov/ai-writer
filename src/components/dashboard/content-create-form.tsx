@@ -18,6 +18,7 @@ import {
 } from '../ui/form'
 import { Textarea } from '../ui/textarea'
 import { useTranslation } from 'react-i18next'
+import { useEffect } from 'react'
 
 type ContentCreateFormProps = {
    isLoading: boolean

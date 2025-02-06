@@ -18,6 +18,7 @@ import ProtectedRoute from './components/auth/protected-route'
 
 import './i18n'
 import Homepage from './pages/homepage'
+import './sentry'
 const router = createBrowserRouter([
    {
       path: '/',

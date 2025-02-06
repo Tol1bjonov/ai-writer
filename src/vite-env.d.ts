@@ -2,7 +2,7 @@
 
 interface ImportMetaEnv {
    readonly VITE_OPEN_AI_KEY: string
-   // more env variables...
+   readonly VITE_SENTRY_DSN: string
 }
 
 interface ImportMeta {
