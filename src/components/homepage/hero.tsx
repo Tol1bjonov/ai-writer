@@ -48,11 +48,17 @@ export default function Hero() {
                   </p>
                   <div className="mt-10 flex items-center justify-center gap-x-6">
                      {user ? (
-                        <Link to="/dashboard">
+                        <Link
+                           to="/dashboard"
+                           data-testid="@hero/dashboard-link"
+                        >
                            <Button size="lg">Go to the Dashboard</Button>
                         </Link>
                      ) : (
-                        <Link to="/auth/register">
+                        <Link
+                           to="/auth/register"
+                           data-testid="@hero/register-link"
+                        >
                            <Button size="lg">Get Started</Button>
                         </Link>
                      )}
