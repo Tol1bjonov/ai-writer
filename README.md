@@ -7,4 +7,5 @@ Used technmoligies:
 -OpenAI
 -TailwindCSS
 -shadcn/UI
+-npm
 -...
